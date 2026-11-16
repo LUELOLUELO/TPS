@@ -1,7 +1,9 @@
+using Unity.Entities;
+
 namespace AstarRoutine.Astar.Components
 {
-    public class AsIslandBufferComponent
+    public struct AsIslandBufferComponent:IBufferElementData
     {
-        
+        public int islandId;
     }
 }

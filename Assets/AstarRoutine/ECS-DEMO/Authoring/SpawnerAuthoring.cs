@@ -1,6 +1,7 @@
 using AstarRoutine.ECS_DEMO.Components;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
 
 namespace AstarRoutine.ECS_DEMO
@@ -8,21 +9,23 @@ namespace AstarRoutine.ECS_DEMO
     public class SpawnerAuthoring:MonoBehaviour
     {
         public GameObject prefab;
-        public float rotateSpeed;
-        public float3 moveSpeed;
+        public int spawnCount;
+        public float spawnRadius;
         public class SpawnerBaker : Baker<SpawnerAuthoring>
         {
             public override void Bake(SpawnerAuthoring authoring)
             {
-                var entity = GetEntity(TransformUsageFlags.Dynamic);
-                AddComponent(entity,new RotateComponent
+                var entity = GetEntity(TransformUsageFlags.None);
+                AddComponent(entity,new SpawnerComponent()
                 {
-                    radiansPerSecond = authoring.rotateSpeed
+                    spawnePrefab = GetEntity(authoring.prefab,TransformUsageFlags.Dynamic),
+                    spawnCount = authoring.spawnCount,
+                    hasSpawned = false,
+                    radius = authoring.spawnRadius,
                 });
-                AddComponent(entity,new MoveSpeedComponent()
-                {
-                    moveSpeed = authoring.moveSpeed
-                });
+                
+
+                
             }
         }
     }

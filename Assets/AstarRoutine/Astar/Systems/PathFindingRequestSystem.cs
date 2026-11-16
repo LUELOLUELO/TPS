@@ -1,6 +1,8 @@
+using Unity.Entities;
+
 namespace AstarRoutine.Astar.Systems
 {
-    public class PathFindingRequestSystem
+    public partial struct PathFindingRequestSystem:ISystem
     {
         
     }

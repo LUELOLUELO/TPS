@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace AstarRoutine.Astar.Authoring
 {
-    public class APenaltyAuthoring:MonoBehaviour
+    public class AObstacleAuthoring:MonoBehaviour
     {
         public int Penalty;
 
-        public class ObstacleBaker : Baker<APenaltyAuthoring>
+        public class ObstacleBaker : Baker<AObstacleAuthoring>
         {
-            public override void Bake(APenaltyAuthoring authoring)
+            public override void Bake(AObstacleAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new AObstacle()

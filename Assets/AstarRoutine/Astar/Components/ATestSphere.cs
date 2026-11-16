@@ -1,6 +1,8 @@
+using Unity.Entities;
+
 namespace AstarRoutine.Astar.Components
 {
-    public class ATestSphere
+    public struct ATestSphere:IComponentData
     {
         
     }

@@ -1,7 +1,13 @@
+using Unity.Entities;
+
 namespace AstarRoutine.ECS_DEMO.Components
 {
-    public class SpawnerComponent
+    public struct SpawnerComponent:IComponentData
     {
+        public Entity spawnePrefab;
+        public int spawnCount;
+        public bool hasSpawned;
+        public float radius;
         
     }
 }

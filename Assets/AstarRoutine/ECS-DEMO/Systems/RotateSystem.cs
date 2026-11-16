@@ -12,7 +12,7 @@ namespace AstarRoutine.ECS_DEMO.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState systemState)
         {
-            systemState.RequireForUpdate<RotateSystem>();
+            systemState.RequireForUpdate<RotateComponent>();
         }
 
         [BurstCompile]
