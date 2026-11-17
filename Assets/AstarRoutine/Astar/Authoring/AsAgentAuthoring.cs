@@ -14,6 +14,7 @@ namespace AstarRoutine.Astar.Authoring
         public float height;
         public float stoppingDistance;//距离目的地多远算抵达终点
         public bool hasInitialDestination;
+        public Vector3 initialDestination;
         public class AsAgentBaker : Baker<AsAgentAuthoring>
         {
             public override void Bake(AsAgentAuthoring authoring)
@@ -28,6 +29,22 @@ namespace AstarRoutine.Astar.Authoring
                     stoppingDistance = authoring.stoppingDistance,
                     hasInitialDestination =  authoring.hasInitialDestination,
                     currentVelocity = new float3(0,0,0)
+                });
+                AddComponent(entity, new AsPathFindingRequester()
+                {
+                    Destination = new float3(authoring.initialDestination.x, authoring.initialDestination.y, authoring.initialDestination.z),
+                    RequestGiven = !authoring.hasInitialDestination,
+                    RequestEntity = Entity.Null
+                });
+                AddComponent(entity, new AsConstantTargetFollower()
+                {
+                    target = Entity.Null,
+                });
+                AddComponent(entity, new ASPathFollower()
+                {
+                    PathAvailable = false,
+                    TargetIndex = 0,
+                    DestinationReached = !authoring.hasInitialDestination,
                 });
             }
         }

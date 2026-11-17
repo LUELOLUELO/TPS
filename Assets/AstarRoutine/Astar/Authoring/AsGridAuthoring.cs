@@ -16,6 +16,10 @@ namespace AstarRoutine.Astar.Authoring
         public LayerMask PenaltyLMIndex;
         
         public int blurSize;
+
+        public int maxPathfingOpsPerFrame;
+
+        public DifferentIslandPolicy differencyIslandPolicy;
         public class AsGridBaker : Baker<AsGridAuthoring>
         {
             public override void Bake(AsGridAuthoring authoring)
@@ -30,12 +34,19 @@ namespace AstarRoutine.Astar.Authoring
                     refreshIsland = false,
                     InaccessibleLMIndex = authoring.InaccessibleLMIndex.value,
                     PenaltyLMIndex = authoring.PenaltyLMIndex.value,
-                    blurSize = authoring.blurSize
+                    blurSize = authoring.blurSize,
+                    differentIslandPolicy = authoring.differencyIslandPolicy
                 };
                 AddComponent(entity,grid);
+                AddComponent(entity,new AsPathFindingParameters()
+                {
+                    maxPathfingOpsPerFrame = authoring.maxPathfingOpsPerFrame,
+                });
                 DynamicBuffer<AsGridNodesBufferComponent> nodes = AddBuffer<AsGridNodesBufferComponent>(entity);
                 //添加岛屿id组件
                 AddBuffer<AsIslandBufferComponent>(entity);
+                //添加寻路请求队列
+                AddBuffer<AsPathFindingOperationsBuffer>(entity);
                 nodes.Length = grid.nodeXCount * grid.nodeYCount;
                 int d = grid.nodeXCount > grid.nodeYCount ? grid.nodeXCount:grid.nodeYCount;
                 for (int x = 0; x < grid.nodeXCount; x++)
